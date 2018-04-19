@@ -1,0 +1,21 @@
+{
+    "collab_server" : "",
+    "contents" : "accuracy.vec <- vector()\nrange.vec  <- c(1,3766,7531,11296,15061)\nrange.vec1 <- c(3765,7530,11295,15060,18828)\n\nfor(i in 1:5 ){\n  #dataset train test\n  test.data <- (range.vec[i]:range.vec1[i])\n  train.data <-(1:18828)[-test.data]\n  \n  tdm.categ <- tdm.stack[,\"mainCATEGORIES\"]\n  tdm.stack.nl <- tdm.stack[,!colnames(tdm.stack) %in% \"mainCATEGORIES\"]\n  \n  knn.pred<- knn(tdm.stack.nl[train.data, ],tdm.stack.nl[test.data,],tdm.categ[train.data])\n  #accuracy\n  conf.matrix <- table(\"Prediction\"= knn.pred,Actual =tdm.categ[test.data])\n  \n  accuracy<- sum(diag(conf.matrix))/length(test.data)*100\n  accuracy.vec<- c(accuracy.vec,accuracy)\n  \n  rm(test.data)\n  rm(train.data)\n  rm(tdm.categ)\n  rm(knn.pred)\n  rm(conf.matrix)\n  rm(accuracy)\n  \n\n   }\nmean(accuracy.vec)\n",
+    "created" : 1519333345904.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "3042539154",
+    "id" : "F6034463",
+    "lastKnownWriteTime" : 1519361072,
+    "last_content_update" : 1519361072972,
+    "path" : "I:/Masters/SPRING 18/SPATIAL AND TEMPORAL/spatial/homework 2/r project/knn_hw2/hw2_5fold.R",
+    "project_path" : "hw2_5fold.R",
+    "properties" : {
+        "tempName" : "Untitled1"
+    },
+    "relative_order" : 3,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

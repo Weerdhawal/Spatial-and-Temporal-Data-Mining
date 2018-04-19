@@ -1,0 +1,23 @@
+{
+    "collab_server" : "",
+    "contents" : "#libraries\nlibrary(tm)\nlibrary(class)\nlibrary(plyr)\n\n\nset.seed(50000)\n#Setting options\noptions(stringsAsFactors = FALSE)\n\n\n#directories\ncategories <-c(\"alt.atheism\",\"comp.graphics\",\"comp.os.ms-windows.misc\",\"comp.sys.ibm.pc.hardware\",\"comp.sys.mac.hardware\",\"comp.windows.x\",\"misc.forsale\",\"rec.autos\",\"rec.motorcycles\",\"rec.sport.baseball\",\"rec.sport.hockey\",\"sci.crypt\",\"sci.electronics\",\"sci.med\",\"sci.space\",\"soc.religion.christian\",\"talk.politics.guns\",\"talk.politics.mideast\",\"talk.politics.misc\",\"talk.religion.misc\")\npathname<-\"I:/Masters/SPRING 18/SPATIAL AND TEMPORAL/spatial/homework 2/r project/20news-18828\"\n\n\n#cleantext\n\ncleanCorpus <-function(all.corp){\n \n  #remove punctuations\n  temp.corp<-tm_map(all.corp,removePunctuation)\n  #strip extra white spaces\n  temp.corp <- tm_map(temp.corp,stripWhitespace)\n  #apply Numbers from files\n  temp.corp<-tm_map(temp.corp,removeNumbers)\n  #lower case\n  temp.corp<- tm_map(temp.corp, tolower)\n  temp.corp<- tm_map(temp.corp, removeWords, stopwords(kind = \"en\"))\n  temp.corp<-tm_map(temp.corp,removeWords,c(\"on\",\"in\",\"next to\",\"infront of\",\"behind\",\"between\",\"under\",\"through\",\n                                                        \" around\",\"i\",\"me\",\"my\",\"mine\",\"you\",\"your\",\"yours\",\"he\",\"him\",\"his\",\"she\",\n                                                        \"her\",\"hers\",\"it\",\"its\",\"we\",\"us\",\"our\",\"ours\",\"they\",\"their\",\"theirs\",\"them\",\"easily\",\n                                                        \"loudly\",\"quickly\",\"quietly\",\"sadly\",\"silently\",\"slowly\",\"always\",\"frequently\",\"often\",\"once\"))\n  \n  return(temp.corp)\n}\n\n#build tdm\n\ngenerateTDM <-function(categ,path){\n  s.dir<- sprintf(\"%s/%s\",path,categ)\n  s.cor <- Corpus(DirSource(directory = s.dir,encoding = \"UTF-8\"),readerControl=list(reader=readPlain,language=\"en\"))\n  s.cor.clean <- cleanCorpus(s.cor)\n  s.tdm <- TermDocumentMatrix(s.cor.clean) \n  \n  s.tdm<-removeSparseTerms(s.tdm,0.85)\n  result<-list(name=categ,tdm=s.tdm)\n  \n}\n\ntdm<-lapply(categories,generateTDM,path = pathname)\n\n\n#attach  name\n\nbindcategstoTDM<- function(tdm){\n  s.mat <- t(data.matrix(tdm[[\"tdm\"]]))\n  s.df <- as.data.frame(s.mat, stringsAsFactors=FALSE)\n  \n  s.df <- cbind(s.df,rep(tdm[[\"name\"]],nrow(s.df)))\n  colnames(s.df)[ncol(s.df)]<-\"mainCATEGORIES\"\n  return(s.df)\n}\n\ncategTDM <- lapply(tdm,bindcategstoTDM)\n\n#stack them together\ntdm.stack <- do.call(rbind.fill,categTDM)\ntdm.stack[is.na(tdm.stack)]<- 0\n\n\n#dataset train test\n#train.data <- sample(nrow(tdm.stack),ceiling(nrow(tdm.stack)*0.7))\n#test.data <-(1:nrow(tdm.stack))[-train.data]\n\n\n#model- Knn\n#tdm.categ <- tdm.stack[,\"mainCATEGORIES\"]\n#tdm.stack.nl <- tdm.stack[,!colnames(tdm.stack) %in% \"mainCATEGORIES\"]\n\n#knn.pred<- knn(tdm.stack.nl[train.data, ],tdm.stack.nl[test.data,],tdm.categ[train.data])\n #accuracy\n#conf.matrix <- table(\"Prediction\"= knn.pred,Actual =tdm.categ[test.data])\n\n#(accuracy<- sum(diag(conf.matrix))/length(test.data)*100)\nwrite.csv(tdm.stack,\"toclass.csv\")\n",
+    "created" : 1519269729334.000,
+    "dirty" : true,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "3367545752",
+    "id" : "CDD00617",
+    "lastKnownWriteTime" : 1519361343,
+    "last_content_update" : 1519497517689,
+    "path" : "I:/Masters/SPRING 18/SPATIAL AND TEMPORAL/spatial/homework 2/r project/knn_hw2/hw2.R",
+    "project_path" : "hw2.R",
+    "properties" : {
+        "docOutlineSize" : "47.27587523180155",
+        "docOutlineVisible" : "1",
+        "tempName" : "Untitled1"
+    },
+    "relative_order" : 1,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

@@ -1,0 +1,21 @@
+{
+    "collab_server" : "",
+    "contents" : "\nrequire(Matrix)\nlibrary(Matrix)\nfsb<-read.csv(\"I:\\\\Masters\\\\SPRING 18\\\\SPATIAL AND TEMPORAL\\\\spatial\\\\homework 2\\\\Decision-Tree\\\\data.csv\",sep = \";\",header = T,quote=\"\",comment.char = \"\")\nfsb_d<-Matrix(as.matrix(fsb),sparse=TRUE)\n\n\ncolna<-findFreqTerms(tdm.stack.nl, lowfreq = 2284,highfreq = 20334)\na<-data.frame(tdm.stack)\ntop100_sel<-a[,colna] \ntop100_sel1<-as.matrix(top100_sel)",
+    "created" : 1519361401271.000,
+    "dirty" : true,
+    "encoding" : "",
+    "folds" : "",
+    "hash" : "1946117281",
+    "id" : "36B0C991",
+    "lastKnownWriteTime" : 7019269456080875340,
+    "last_content_update" : 1519515960016,
+    "path" : null,
+    "project_path" : null,
+    "properties" : {
+        "tempName" : "Untitled1"
+    },
+    "relative_order" : 4,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}
