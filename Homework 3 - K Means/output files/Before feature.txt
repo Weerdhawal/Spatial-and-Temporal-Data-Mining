@@ -1,0 +1,38 @@
+Before feature selection 
+I:\Masters\SPRING 18\SPATIAL AND TEMPORAL\spatial\homework3\uploaded code>python27 main_trial.py
+%%%%%%%%%%%%
+Time : 87.207878
+Euc Withinss 117936.886206
+iteration 30
+Cluster distribution List
+8 11 16 27 7 11 42 10 92 86 32 375 7 36 33 2 7 188  6 4
+%%%%%%%%%%%%
+Time : 81.553536
+Cos Withinss 387.063000
+iteration 20
+Cluster distribution List
+40  13 56 38 15 7 86 25 80  19  19 34 88 123 186 19 33 73 26  20
+%%%%%%%%%%%%
+Time : 61.053036
+Jac Withinss 764.805000
+iteration 24
+Cluster distribution List
+72 20 105 51 53 72 64 32 41 33 21 24 27 45 67 44 63 46 73 47 
+%%%%%%%%%%%%
+Time : 10.293005
+Gen Euclidean Withinss 59.451000
+iteration 15
+Cluster distribution List
+1000 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+%%%%%%%%%%%%
+Time : 516.623004
+Gen Cosine Withinss 449.892000
+iteration 500
+Cluster distribution List
+0 0 407 0 0  0 0 17 0 0  570 0  0  0 0  0 0 0 6 0
+%%%%%%%%%%%%
+Time : 356.344939
+Gen Jaccard Withinss 157.141000
+iteration 500
+Cluster distribution List
+0 366 0 0 381 0 0 142 0 0 0 0 0 111 0 0 0 0 0 0
